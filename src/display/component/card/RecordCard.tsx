@@ -1,13 +1,13 @@
 import {Card} from "./Card.tsx";
-import {Header, Text} from "./Text.tsx";
-import {Icon} from "./Icon.tsx";
-import {Button} from "./Button.tsx";
-import {getCopy} from "../../service/CopyService.ts";
-import type {VeterinaryRecord} from "../../core/VeterinaryRecord.ts";
-import {getSingleSyncCopy} from "../util.ts";
-import type {SyncState} from "../types.ts";
-import {Box} from "./Box.tsx";
-import {DATA_SOURCE_ADDED_BY_USER_ID} from "../../core/DataSource.ts";
+import {Header, Text} from "../Text.tsx";
+import {Icon} from "../Icon.tsx";
+import {Button} from "../Button.tsx";
+import {getCopy} from "../../../service/CopyService.ts";
+import type {VeterinaryRecord} from "../../../core/VeterinaryRecord.ts";
+import {getSingleSyncCopy} from "../../util.ts";
+import type {SyncState} from "../../types.ts";
+import {Box} from "../Box.tsx";
+import {DATA_SOURCE_ADDED_BY_USER_ID} from "../../../core/DataSource.ts";
 
 export function RecordCard({
   record,

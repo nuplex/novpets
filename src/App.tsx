@@ -1,121 +1,77 @@
 import { useState } from 'react';
-import heroImg from './assets/hero.png';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
 import './App.css';
+import {PetHome} from "./display/page/PetHome.tsx";
+import {PetRecords} from "./display/page/PetRecords.tsx";
+import type {OnChangePageParameters, PetRecordsChangePagePayload} from "./display/types.ts";
+import type {User} from "./core/User.ts";
+import {DataService} from "./service/DataService.ts";
+import {APP_USER_ID} from "./mock/mockAppData.ts";
+import {TextWithIcon} from "./display/component/Text.tsx";
+import {getCopy} from "./service/CopyService.ts";
+import {Icon} from "./display/component/Icon.tsx";
+import {type Page, SideNavigation} from "./display/SideNavigation.tsx";
+import {DataSources} from "./display/page/DataSources.tsx";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [loadedUser, setLoadedUser] = useState(false);
+  const [changePagePayload, setChangePagePayload] = useState<Record<string, any>>();
+  const [user, setUser] = useState<User>(DataService.getUser(APP_USER_ID));
+
+  if (!loadedUser && !user) {
+    setUser(DataService.getUser(APP_USER_ID));
+    setLoadedUser(true);
+    setCurrentPage('home');
+  }
+
+  // This is simple page changing; something like React Router is more robust for larger projects.
+  const onChangePage = ({
+    page,
+    payload
+  }: OnChangePageParameters) => {
+    if (payload) {
+      setChangePagePayload(payload);
+    }
+    setUser(DataService.getUser(APP_USER_ID));
+    setCurrentPage(page);
+  };
+
+  let page = null;
+  if (user) {
+    switch (currentPage) {
+      case 'dataSources':
+        page = <DataSources userData={user} onChangePage={onChangePage}/>;
+        break;
+      case 'records':
+        const shownPets = (changePagePayload as PetRecordsChangePagePayload)?.shownPets ?? [];
+        const searchTerm = (changePagePayload as PetRecordsChangePagePayload)?.searchTerm ?? '';
+        page = <PetRecords userData={user} shownPets={shownPets} searchTermData={searchTerm}/>;
+        break;
+      default:
+      case 'home':
+        page = <PetHome userData={user} onChangePage={onChangePage}/>;
+    }
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div id={"app"}>
+      <TextWithIcon
+        classes={['logo']}
+        text={getCopy('siteName')}
+        textClasses={['logo--text']}
+        icon={<Icon classes={['logo--icon']} iconId={'logo'}/>}
+        iconPosition={'left'}
+        onClick={() => onChangePage({page: 'home'})}
+      />
+      <div id={"site"}>
+        <div id={'site-left'}>
+          <SideNavigation onChangePage={onChangePage}/>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+        <div id={'site-right'}>
+          {page}
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </div>
+    </div>
   );
 }
 

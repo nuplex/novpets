@@ -31,8 +31,9 @@ export default defineConfig([
     rules: {
       "@typescript-eslint/consistent-type-definitions": "off",
       '@stylistic/semi': ['error', 'always'],
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn"
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-assignment": "warn",
+      "no-case-declarations": "off",
     }
   },
 ])

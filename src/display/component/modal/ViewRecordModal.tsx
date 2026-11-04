@@ -1,9 +1,11 @@
-import type {RecordBodyElement, RecordDetail, VeterinaryRecord} from "../../core/VeterinaryRecord.ts";
-import {Header, Text} from "./Text.tsx";
-import {getCopy} from "../../service/CopyService.ts";
+import type {RecordBodyElement, RecordDetail, VeterinaryRecord} from "../../../core/VeterinaryRecord.ts";
+import {Header, Text} from "../Text.tsx";
+import {getCopy} from "../../../service/CopyService.ts";
 import {Modal} from "./Modal.tsx";
-import {DATA_SOURCE_ADDED_BY_USER_ID} from "../../core/DataSource.ts";
-import {formatDate} from "../util.ts";
+import {DATA_SOURCE_ADDED_BY_USER_ID} from "../../../core/DataSource.ts";
+import {formatDate} from "../../util.ts";
+import {Divider} from "../Divider.tsx";
+import {Button} from "../Button.tsx";
 
 
 export function ViewRecordDetailBodyElement({
@@ -13,7 +15,7 @@ export function ViewRecordDetailBodyElement({
 }) {
   return (
     <div className={'record-detail-body-element'}>
-      {detail.header ? <Header type={'h3'} text={detail.header}/> : null}
+      {detail.header ? <Header type={'h4'} text={detail.header}/> : null}
       <Text value={detail.text}/>
     </div>
   );
@@ -26,10 +28,10 @@ export function ViewRecordDetail({
 }) {
   return (
     <div className={'record-detail'}>
-      <Header type={'h2'} text={detail.header}/>
-      {detail.body.map((item) => {
+      <Header type={'h3'} text={detail.header}/>
+      {detail.body.map((item, index) => {
         return (
-          <ViewRecordDetailBodyElement detail={item}/>
+          <ViewRecordDetailBodyElement key={`rd${index}`} detail={item}/>
         );
       })}
     </div>
@@ -51,15 +53,26 @@ export function ViewRecordModal({
   const date = formatDate(record.timestamp);
 
   return (
-    <Modal onClose={onClose}>
-      <Header type={'h1'} text={record.type}/>
-      <Text classes={['text--subheader']} value={importedText}/>
-      <Text classes={['text--note']} value={date}/>
-      {record.details.map((detail) => {
+    <Modal classes={['modal--large']} onClose={onClose}>
+      <Header classes={['text-capitalize', 'view-record--header']} type={'h1'} text={record.type}/>
+      <Text classes={['text--small']} value={`${importedText} on ${date}`}/>
+      <Divider/>
+      {record.details.map((detail, index) => {
         return (
-          <ViewRecordDetail detail={detail}/>
+          <section key={`vrd${index}`}>
+            <ViewRecordDetail  detail={detail}/>
+            {record.details.length !== index + 1 ?
+              <Divider/>
+              : null}
+          </section>
         );
       })}
+      <Button
+        classes={['modal--close-button']}
+        text={getCopy('modalCloseButtonText')}
+        type={'secondary'}
+        onClick={onClose}
+      />
     </Modal>
   );
 }

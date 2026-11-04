@@ -1,10 +1,32 @@
 import type {VeterinaryRecord} from "./VeterinaryRecord.ts";
-import type {DataSource} from "./DataSource.ts";
 
-export interface Pet {
+export const PET_TYPES = ['dog', 'cat', 'bird', 'other'] as const;
+
+export type PetType = typeof PET_TYPES[number];
+
+export type Pet = {
   id: string;
   name: string;
-  dataSources: DataSource[]; // TODO how to signal a valid data source is the user?
-  records: Record<string, VeterinaryRecord>
-  picture?: string;
+  type: PetType
+  records: Record<string, VeterinaryRecord>;
+};
+
+export function toPet({
+  name,
+  type,
+}: {
+  name: string;
+  type: PetType;
+}): Pet {
+  const id = type + name;
+  return {
+    id,
+    name,
+    type,
+    records: {},
+  };
+}
+
+export function getPetRecordsAsArray(records: Record<string, VeterinaryRecord>): VeterinaryRecord[] {
+  return Object.values(records);
 }

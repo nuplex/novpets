@@ -1,5 +1,5 @@
-import {Text, TextWithIcon} from "./Text.tsx";
-import {Icon} from "./Icon.tsx";
+import {Text, TextWithIcon} from "../Text.tsx";
+import {Icon} from "../Icon.tsx";
 
 export function AddCard({
   header,

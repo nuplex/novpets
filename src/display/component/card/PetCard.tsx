@@ -1,12 +1,12 @@
-import {getPetRecordsAsArray, type Pet} from "../../core/Pet.ts";
+import {getPetRecordsAsArray, type Pet} from "../../../core/Pet.ts";
 import {Card} from "./Card.tsx";
-import {Header, Text} from "./Text.tsx";
-import {Icon} from "./Icon.tsx";
-import {Button} from "./Button.tsx";
-import {getCopy} from "../../service/CopyService.ts";
-import {Box} from "./Box.tsx";
-import {getIconIdForPetType, getSyncCopy} from "../util.ts";
-import type {SyncState} from "../types.ts";
+import {Header, Text} from "../Text.tsx";
+import {Icon} from "../Icon.tsx";
+import {Button} from "../Button.tsx";
+import {getCopy} from "../../../service/CopyService.ts";
+import {Box} from "../Box.tsx";
+import {getIconIdForPetType, getSyncCopy} from "../../util.ts";
+import type {SyncState} from "../../types.ts";
 
 export function PetCard({
   pet,
@@ -22,7 +22,6 @@ export function PetCard({
   onClickEditPet: (args: any) => void;
   onClickDeletePet: (args: any) => void;
   syncState: SyncState;
-  //TODO add "isSynced" which becomes true when sync is pressed.
 }) {
   const petRecords = getPetRecordsAsArray(pet.records);
   const recordsText = `${petRecords.length} records`;
