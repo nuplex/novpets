@@ -42,7 +42,12 @@ export function AddPetModal({
       return;
     }
 
-    const pet = toPet({id: editPet?.id, name: petName.trim(), type: petType});
+    const pet: Pet = toPet({
+      ...editPet,
+      name: petName.trim(),
+      type: petType
+    });
+
     onSubmitPet(pet);
   };
 

@@ -15,16 +15,18 @@ export function toPet({
   id,
   name,
   type,
+  records = {},
 }: {
   id?: string;
   name: string;
   type: PetType;
+  records?: Record<string, VeterinaryRecord>
 }): Pet {
   return {
     id: id ?? type + name,
     name,
     type,
-    records: {},
+    records: records ?? {},
   };
 }
 

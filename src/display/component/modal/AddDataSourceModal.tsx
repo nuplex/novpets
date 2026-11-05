@@ -36,7 +36,11 @@ export function AddDataSourceModal({
       return;
     }
 
-    const dataSource = toDataSource({name: dataSourceName.trim(), id: editDataSource?.id});
+    const dataSource = toDataSource({
+      ...editDataSource,
+      name: dataSourceName.trim(),
+      id: editDataSource?.id
+    });
     onSubmitDataSource(dataSource);
   };
 
