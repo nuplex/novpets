@@ -228,7 +228,7 @@ export class DataService {
   }
 
   /**
-   * Helper function that gets a user.
+   * Function that gets a user.
    * If the user doesn't exist, it will create the user entry.
    * @param userId
    * @private

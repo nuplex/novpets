@@ -103,6 +103,7 @@ export function AddRecordModal({
     }
 
     const record = toVeterinaryRecord({
+      id: editRecord?.id,
       petId: petId ?? selectedPetId!,
       dataSourceId: dataSource?.id ?? DATA_SOURCE_ADDED_BY_USER_ID,
       dataSourceName: dataSource?.name ?? DATA_SOURCE_ADDED_BY_USER_NAME,

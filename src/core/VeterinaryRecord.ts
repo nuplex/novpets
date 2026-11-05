@@ -64,12 +64,14 @@ export function toRecordDetail({
 }
 
 export function toVeterinaryRecord({
+  id,
   petId,
   dataSourceId,
   dataSourceName,
   type,
   details = [],
 }:{
+  id?: string;
   petId: string;
   dataSourceId: string;
   dataSourceName: string;
@@ -77,11 +79,10 @@ export function toVeterinaryRecord({
   details: RecordDetail[];
 }): VeterinaryRecord {
   const timestamp = Date.now();
-  const id = `${timestamp}-${petId}-${dataSourceId}-${type}`;
   const icon = RECORD_TYPE_ICON_MAP[type];
 
   return {
-    id,
+    id: id ?? `${timestamp}-${petId}-${dataSourceId}-${type}`,
     timestamp,
     petId,
     dataSourceId,

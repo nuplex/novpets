@@ -1,6 +1,6 @@
 import type {VeterinaryRecord} from "./VeterinaryRecord.ts";
 
-export const PET_TYPES = ['dog', 'cat', 'bird', 'other'] as const;
+export const PET_TYPES = ['dog', 'cat', 'bird', 'fish', 'reptile', 'rodent', 'horse', 'other (exotic)', 'other (livestock)', 'other'] as const;
 
 export type PetType = typeof PET_TYPES[number];
 
@@ -12,15 +12,16 @@ export type Pet = {
 };
 
 export function toPet({
+  id,
   name,
   type,
 }: {
+  id?: string;
   name: string;
   type: PetType;
 }): Pet {
-  const id = type + name;
   return {
-    id,
+    id: id ?? type + name,
     name,
     type,
     records: {},

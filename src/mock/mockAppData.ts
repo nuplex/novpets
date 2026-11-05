@@ -28,13 +28,16 @@ const MOCK_DATA_SOURCES: DataSource[] = [
   })
 ];
 
+// Mock user ID so the application has a test user.
 export const APP_USER_ID = 'test';
 
-function getRandomValueFromArray<T>(array: T[]): T {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-
+/**
+ * Generates random records to mimic the application pulling in new information.
+ * @param amount
+ * @param dataSourceId
+ * @param dataSourceName
+ * @param petId
+ */
 function generateRecords({
   amount,
   dataSourceId,
@@ -72,6 +75,11 @@ function generateRecords({
   }
 
   return records;
+}
+
+function getRandomValueFromArray<T>(array: T[]): T {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
 }
 
 /**
