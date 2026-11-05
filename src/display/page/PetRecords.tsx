@@ -126,6 +126,7 @@ export function PetRecords({
   const onCloseModal = () => {
     setShowAddRecordModal(false);
     setShowEditRecordModal(false);
+    setShowViewRecordModal(false);
     setSelectedRecord(undefined);
   };
 

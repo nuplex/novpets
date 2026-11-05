@@ -31,6 +31,8 @@ function App() {
   }: OnChangePageParameters) => {
     if (payload) {
       setChangePagePayload(payload);
+    } else {
+      setChangePagePayload(undefined);
     }
     setUser(DataService.getUser(APP_USER_ID));
     setCurrentPage(page);
