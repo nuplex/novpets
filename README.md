@@ -32,6 +32,7 @@ into Novellia to try and make an app that looked like an actual MVP that a Novel
 ### Loom Video
 
 Please watch the following video for an overview:
+https://www.loom.com/share/b337bafc4ca64d2bb87a003a6d5fe36c
 
 ### Feature Overview
 
