@@ -21,6 +21,12 @@ The program will start and be live at `http://localhost:5176/`
 
 Note that if port `5176` is unavailable, Vite will automatically choose the next available port.
 
+### Generating Data Quickly
+
+1. Add pets manually using `+ Add your pet` on the Overview page.
+2. Press the `Sync Veterinary Records` button. It will generate records for pets. It's random so it may sometimes generate zero; just press again!
+   - There has to be at least one pet for this button to be visible.
+
 ## About the App
 
 **NovPets** is a hypothetical pet-focused spin-off of [Novellia](https://novellia.com), a game-changing unified health information and records platform.
