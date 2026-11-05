@@ -83,12 +83,14 @@ export function PetRecords({
   };
 
   const onClickEditRecord = (record: VeterinaryRecord, e: MouseEvent) => {
+    e.stopPropagation();
     setSelectedRecord(record);
     setShowEditRecordModal(true);
     e.stopPropagation();
   };
 
   const onClickDeleteRecord = (record: VeterinaryRecord, e: MouseEvent) => {
+    e.stopPropagation();
     const updatedUser = DataService.deleteRecordOnPet({
       userId: user.id,
       petId: record.petId,
